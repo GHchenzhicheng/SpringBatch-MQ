@@ -1,0 +1,7 @@
+com\hadoop\orcWriter\CreatePojo\CreatePojo.class
+com\hadoop\orcWriter\POJO\Pojo.class
+com\hadoop\orcWriter\CreatePojo\ReadOrc.class
+com\hadoop\orcWriter\CreatePojo\SchemaType.class
+com\hadoop\orcWriter\WriterStarter.class
+com\hadoop\orcWriter\CreatePojo\TypeUtil.class
+com\hadoop\orcWriter\CreatePojo\WriterOrc.class
