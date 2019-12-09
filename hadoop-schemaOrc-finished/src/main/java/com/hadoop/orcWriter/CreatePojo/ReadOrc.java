@@ -18,9 +18,9 @@ import org.apache.orc.TypeDescription;
 
 public class ReadOrc {
 	public static void readOrc(	Configuration conf) throws IllegalArgumentException, IOException {
-		conf.set("fs.defaultFS", "hdfs://192.168.100.83:9000");
+		conf.set("fs.defaultFS", "hdfs://192.168.100.84:9000");
 		TypeDescription schema = TypeDescription.fromString("struct<name:binary,age:int,height:smallint,weight:double,time:timestamp,new_time:binary,bigDecimal:bigint>");
-		Reader reader = OrcFile.createReader(new Path("/orc333/tmp2.orc"), OrcFile.readerOptions(conf));
+		Reader reader = OrcFile.createReader(new Path("/orc/tmp.orc"), OrcFile.readerOptions(conf));
 		
 		VectorizedRowBatch batch = schema.createRowBatch();
 		RecordReader rowIterator = reader.rows(reader.options().schema(schema));

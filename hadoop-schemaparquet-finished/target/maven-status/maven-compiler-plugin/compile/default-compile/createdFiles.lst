@@ -1,0 +1,6 @@
+com\parquet\hadoop_schemaparquet\conf\ParquetReaderData.class
+com\parquet\hadoop_schemaparquet\conf\ParquetWriterDemo.class
+com\parquet\hadoop_schemaparquet\conf\CreateSchema.class
+com\parquet\hadoop_schemaparquet\conf\SchemaType.class
+com\parquet\hadoop_schemaparquet\SchemaStarter.class
+com\parquet\hadoop_schemaparquet\conf\UtilType.class

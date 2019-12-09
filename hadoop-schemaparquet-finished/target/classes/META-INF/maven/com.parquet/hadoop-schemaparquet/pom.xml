@@ -2,21 +2,25 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>com.orc</groupId>
-  <artifactId>hadoop-testOrc</artifactId>
+  <groupId>com.parquet</groupId>
+  <artifactId>hadoop-schemaparquet</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>hadoop-testOrc</name>
+  <name>hadoop-schemaparquet</name>
   <url>http://maven.apache.org</url>
-<properties>
-	<java.version>1.8</java.version>
+
+  <properties>
+  	<java.version>1.8</java.version>
   	<hadoop.version>2.7.1</hadoop.version>
+  	<parquet.version>1.10.1</parquet.version>
+  	<parquet-format.version>2.6.0</parquet-format.version>
   	<commons.version>2.6</commons.version>
   	<log4f.version>1.2.17</log4f.version>
-  	 <protobuf-java.version>3.7.1</protobuf-java.version>
-  	 <commons-cli.version>1.4</commons-cli.version>
-  	 <htrace-core.version>3.1.0-incubating</htrace-core.version>
+  	<commons-cli.version>1.4</commons-cli.version>
+  	<protobuf-java.version>3.7.1</protobuf-java.version>
+  	<htrace-core.version>3.1.0-incubating</htrace-core.version>
+  	<commons-collections.version>3.2.2</commons-collections.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
   
@@ -28,46 +32,13 @@
 	</parent>
 
   <dependencies>
+	<dependency>
+	    <groupId>org.apache.hadoop</groupId>
+	    <artifactId>hadoop-mapreduce-client-core</artifactId>
+	    <version>2.7.1</version>
+	</dependency>
+  
   <dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-hadoop</artifactId>
-			<version>2.5.0.RELEASE</version>
-			 <exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-hadoop-store</artifactId>
-			<version>2.5.0.RELEASE</version>
-			 <exclusions>
-				<exclusion>
-					<groupId>org.slf4j</groupId>
-					<artifactId>slf4j-log4j12</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>log4j</groupId>
-					<artifactId>log4j</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>javax.servlet</groupId>
-					<artifactId>servlet-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-   <dependency>
 		<groupId>jdk.tools</groupId>
 		<artifactId>jdk.tools</artifactId>
 		<version>1.8</version>
@@ -151,35 +122,44 @@
 				</exclusion>
 			</exclusions>
 	</dependency>
-  <!-- orc dependency -->
-    <dependency>
-      <groupId>org.apache.orc</groupId>
-      <artifactId>orc-core</artifactId>
-      <version>1.5.5</version>
-    </dependency>
+	
+	<!--parquet jar-->
 	<dependency>
-	    <groupId>org.apache.hive</groupId>
-	    <artifactId>hive-exec</artifactId>
-	    <version>1.2.1</version>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-avro</artifactId>
+	    <version>${parquet.version}</version>
 	</dependency>
 	
 	<dependency>
-	    <groupId>org.apache.htrace</groupId>
-	    <artifactId>htrace-core</artifactId>
-	    <version>${htrace-core.version}</version>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-column</artifactId>
+	    <version>${parquet.version}</version>
 	</dependency>
 	
 	<dependency>
-	    <groupId>commons-cli</groupId>
-	    <artifactId>commons-cli</artifactId>
-	    <version>${commons-cli.version}</version>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-common</artifactId>
+	    <version>${parquet.version}</version>
 	</dependency>
 	
 	<dependency>
-	    <groupId>com.google.protobuf</groupId>
-	    <artifactId>protobuf-java</artifactId>
-	    <version>${protobuf-java.version}</version>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-encoding</artifactId>
+	    <version>${parquet.version}</version>
 	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-format</artifactId>
+	    <version>${parquet-format.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.parquet</groupId>
+	    <artifactId>parquet-hadoop</artifactId>
+	    <version>${parquet.version}</version>
+	</dependency>
+	
 	
 	<!-- log jar -->
 	<dependency>
@@ -193,15 +173,51 @@
 	    <artifactId>slf4j-log4j12</artifactId>
 	    <scope>test</scope>
 	</dependency>
-	<dependency>
-			<groupId>com.google.guava</groupId>
-			<artifactId>guava</artifactId>
-			<version>20.0</version>
-		</dependency>
 	
-  </dependencies>
+	<!-- commons jar -->
+	<dependency>
+	    <groupId>org.seleniumhq.selenium</groupId>
+	    <artifactId>selenium-java</artifactId>
+	</dependency>
+	
+	<dependency>
+	    <groupId>commons-collections</groupId>
+	    <artifactId>commons-collections</artifactId>
+	    <version>3.2.2</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>commons-lang</groupId>
+	    <artifactId>commons-lang</artifactId>
+	    <version>${commons.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>commons-io</groupId>
+	    <artifactId>commons-io</artifactId>
+	    <version>${commons.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>com.google.protobuf</groupId>
+	    <artifactId>protobuf-java</artifactId>
+	    <version>${protobuf-java.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.apache.htrace</groupId>
+	    <artifactId>htrace-core</artifactId>
+	    <version>${htrace-core.version}</version>
+	</dependency>
 
- <build>
+	<dependency>
+	    <groupId>commons-cli</groupId>
+	    <artifactId>commons-cli</artifactId>
+	    <version>${commons-cli.version}</version>
+	</dependency>
+  </dependencies>
+  
+  <build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -209,6 +225,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>
-
